@@ -5,9 +5,9 @@ networks:
     external: false
 
 volumes:
-  gitea:
+  web:
     driver: local
-  gitea-db:
+  db:
     driver: local
 
 services:
@@ -15,15 +15,15 @@ services:
     image: gitea/gitea:1
     container_name: gitea
     environment:
-      - USER_UID=1000
-      - USER_GID=1000
+      - USER_UID=163
+      - USER_GID=163
       - DB_TYPE=mysql
       - DB_HOST=db:3306
       - DB_NAME=gitea
       - DB_USER=gitea
       - DB_PASSWD=KJIwtn8xYih0
     volumes:
-      - gitea:/data
+      - web:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     networks:
@@ -45,4 +45,4 @@ services:
     networks:
       - gitea
     volumes:
-      - gitea-db:/var/lib/mysql
+      - db:/var/lib/mysql
