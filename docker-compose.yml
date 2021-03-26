@@ -1,0 +1,29 @@
+version: '3'
+
+volumes:
+  gitea:
+    driver: local
+  gitea-db:
+    driver: local
+
+services:
+  web:
+    image: gitea/gitea:1
+    volumes:
+      - gitea:/data
+    ports:
+      - "3000:3000"
+      - "222:22"
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: mariadb:10
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=eqxdTM4zB1Ch
+      - MYSQL_DATABASE=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=KJIwtn8xYih0
+    volumes:
+      - gitea-db:/var/lib/mysql
