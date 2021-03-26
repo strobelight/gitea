@@ -6,16 +6,16 @@ Edit the `docker-compose.yml` file for different passwords to use.
 
 Also of note, ssh port is 222 unless also changed in the yml file.
 
-# start
+## start
 
 ```
 docker-compose up -d
 ```
 
-# access
+## access
 [localhost:3000](http://localhost:3000)
 
-# stop
+## stop
 ```
 docker-compose stop
 ```
