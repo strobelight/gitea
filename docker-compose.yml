@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  gitea:
+    external: false
+
 volumes:
   gitea:
     driver: local
@@ -9,8 +13,21 @@ volumes:
 services:
   web:
     image: gitea/gitea:1
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - DB_TYPE=mysql
+      - DB_HOST=db:3306
+      - DB_NAME=gitea
+      - DB_USER=gitea
+      - DB_PASSWD=KJIwtn8xYih0
     volumes:
       - gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - gitea
     ports:
       - "3000:3000"
       - "222:22"
@@ -25,5 +42,7 @@ services:
       - MYSQL_DATABASE=gitea
       - MYSQL_USER=gitea
       - MYSQL_PASSWORD=KJIwtn8xYih0
+    networks:
+      - gitea
     volumes:
       - gitea-db:/var/lib/mysql

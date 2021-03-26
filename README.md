@@ -15,6 +15,8 @@ docker-compose up -d
 ## access
 [localhost:3000](http://localhost:3000)
 
+If first time, access the Explore button to complete installation.
+
 ## stop
 ```
 docker-compose stop
