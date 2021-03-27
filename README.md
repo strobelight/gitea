@@ -25,6 +25,7 @@ Edit the `docker-compose.yml` file for different passwords to use. Change the UI
 Also of note, ssh port is 222 unless also changed in the yml file, but if you change it, you'll need to also change it in /app/gitea/gitea script on host.
 
 ## start
+You'll need docker and docker-compose.
 
 ```
 docker-compose up -d
