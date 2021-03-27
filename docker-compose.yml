@@ -26,6 +26,7 @@ services:
       - web:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
+      - /home/git/.ssh:/data/git/.ssh
     networks:
       - gitea
     ports:
