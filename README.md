@@ -52,3 +52,7 @@ docker volume rm gitea_web  # use matching from above statement
 docker volume rm gitea_db  # 
 
 ```
+
+## config
+[Configuration Cheat Sheet](https://docs.gitea.io/en-us/config-cheat-sheet/)
+
