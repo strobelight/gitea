@@ -2,7 +2,7 @@
 
 Git server with named volumes, based on information provided in [gitea docker install doc](https://docs.gitea.io/en-us/install-with-docker/).
 
-For ssh to work, you'll need a git user per [this document](https://docs.gitea.io/en-us/install-from-binary/#prepare-environment). You'll also need an ssh key generated for this user, a special script, and find out the uid/gid. For example, as root on the host:
+For ssh to work with gitea, you'll need a git user per [this document](https://docs.gitea.io/en-us/install-from-binary/#prepare-environment). You'll also need an ssh key generated for this user, a special script, and find out the uid/gid. For example, as root on the host:
 
 ```
 mkdir -p /app/gitea
@@ -12,7 +12,7 @@ EOF
 chmod +x /app/gitea/gitea
 useradd --system --shell /bin/bash --comment 'Git Version Control' --user-group --create-home git
 passwd --lock git
-su git
+su - git
 ssh-keygen -t rsa -N "" -C "Gitea git user host key"  # save to ~/.ssh/id_rsa
 echo "$(cat /home/git/.ssh/id_rsa.pub)" > ~/.ssh/authorized_keys
 id  # note the uid and gid
@@ -32,14 +32,21 @@ docker-compose up -d
 ```
 
 ## access
-[localhost:3000](http://localhost:3000)
+Access from the host is [localhost:3000](http://localhost:3000).  You could edit /etc/hosts and add an alias of gitea, `127.0.0.1 gitea`.
 
 If first time, access the Explore button, scan the information for correctness, and click Install at bottom to complete the installation. If no error immediately appears, give it time to install.
+
+Access from other containers in the same network (--network=gitea_gitea) is [gitea:3000](http://gitea:3000).
 
 ## stop
 ```
 docker-compose stop
 ```
+
+## Jenkins
+For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section. If running Jenkins and Gitea from containers, ensure both on the same network. 
+
+The webhook to Jenkins using gitea is `http://jenkins:8080/gitea-webhook/` (if using jenkins in a container on the same network with hostname jenkins).
 
 ## starting over
 Some steps if you just want to start from a clean slate. _WARNING! This will destroy user accounts and stored repos!._
