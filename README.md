@@ -44,9 +44,23 @@ docker-compose stop
 ```
 
 ## Jenkins
-For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section. If running Jenkins and Gitea from containers, ensure both on the same network. 
+For integration with gitea:
 
-The webhook to Jenkins using gitea is `http://jenkins:8080/gitea-webhook/` (if using jenkins in a container on the same network with hostname jenkins).
+- Install jenkins gitea plugin
+- Configure access to gitea (manage -> configure, scroll to gitea server section)
+- Configure gitea repo webhook to jenkins
+
+### Jenkins config
+For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section. If running Jenkins and Gitea from containers, ensure both on the same network.
+
+### Gitea webhook config
+The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webhook/` (if using jenkins in a container on the same network with hostname jenkins).
+
+### Troubleshooting
+
+- ensure correct credential being used for access
+- ensure correct urls being used
+- webhook issues may need advanced gitea server setup on Jenkins 
 
 ## starting over
 Some steps if you just want to start from a clean slate. _WARNING! This will destroy user accounts and stored repos!._
@@ -64,3 +78,12 @@ docker volume rm gitea_db  #
 ## config
 [Configuration Cheat Sheet](https://docs.gitea.io/en-us/config-cheat-sheet/)
 
+`app.ini` configures gitea. 
+
+If using docker, 
+
+```
+docker exec -it -u git gitea bash
+cd /data/gitea/conf
+vi app.ini
+```
