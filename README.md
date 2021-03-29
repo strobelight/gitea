@@ -48,13 +48,13 @@ For integration with gitea:
 
 - Install jenkins gitea plugin
 - Configure access to gitea (manage -> configure, scroll to gitea server section)
-- Configure gitea repo webhook to jenkins
+- Configure gitea repo webhook to jenkins (sometimes Jenkins automatically configures this)
 
 ### Jenkins config
 For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section. If running Jenkins and Gitea from containers, ensure both on the same network.
 
 ### Gitea webhook config
-The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webhook/` (if using jenkins in a container on the same network with hostname jenkins).
+The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webhook/post` (if using jenkins in a container on the same network with hostname jenkins). I generated a token, saved in Jenkins credential, and provided that to the configuration for the pipeline. A token allows full access which meant Jenkins could establish the webhook itself. A token has the added benefit of not requiring a _crumb_ for cross-site accesses.
 
 ### Troubleshooting
 
