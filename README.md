@@ -87,3 +87,16 @@ docker exec -it -u git gitea bash
 cd /data/gitea/conf
 vi app.ini
 ```
+
+Here are changes I made:
+
+```
+# in [repository] section:
+ENABLE_PUSH_CREATE_USER = true
+
+# in [server] section:
+ROOT_URL         = http://gitea:3000/
+```
+
+After changes, retart `/app/gitea/gitea manager restart`.
+
