@@ -98,5 +98,5 @@ ENABLE_PUSH_CREATE_USER = true
 ROOT_URL         = http://gitea:3000/
 ```
 
-After changes, retart `/app/gitea/gitea manager restart`.
+After changes, restart `/app/gitea/gitea manager restart`.
 
