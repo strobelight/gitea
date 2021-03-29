@@ -58,9 +58,11 @@ The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webh
 
 ### Troubleshooting
 
-- ensure correct credential being used for access
+- ensure correct credential being used for access (user/password or user/token)
 - ensure correct urls being used
 - webhook issues may need advanced gitea server setup on Jenkins 
+- if using docker containers for gitea as well as jenkins, you may run into cross-site issues if the containers domains are not the same. You may be able to get around by checking the _Enable proxy compatibility_ box.
+- generate token for use with jenkins
 
 ## starting over
 Some steps if you just want to start from a clean slate. _WARNING! This will destroy user accounts and stored repos!._
@@ -95,8 +97,12 @@ Here are changes I made:
 ENABLE_PUSH_CREATE_USER = true
 
 # in [server] section:
+DOMAIN           = gitea
+SSH_DOMAIN       = gitea
 ROOT_URL         = http://gitea:3000/
 ```
 
-After changes, restart `/app/gitea/gitea manager restart`.
+After changes, restart via `/app/gitea/gitea manager restart` or do `docker-compose stop; docker-compose up -d`.
+
+Be consistent. If you changed to use url like `gitea:3000`, use that everywhere else where needed, like in Jenkins config too.
 
