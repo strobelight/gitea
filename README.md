@@ -51,7 +51,17 @@ For integration with gitea:
 - Configure gitea repo webhook to jenkins (sometimes Jenkins automatically configures this)
 
 ### Jenkins config
-For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section. If running Jenkins and Gitea from containers, ensure both on the same network.
+For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section under _Manage Jenkins -> Configure System_. 
+
+- Create a token in gitea for access by Jenkins, copy to clipboard for pasting next
+- Create Jenkins credential to save gitea token
+- Name: _Local Gitea_
+- Server URL: _http://gitea:3000_
+- Check _Manage hooks_, provide a gitea token credential
+- Click Advanced
+- Alias URL is _http://gitea:3000_
+
+If running Jenkins and Gitea from containers, ensure both on the same network.
 
 When using with Blue Ocean pipeline:
 
@@ -62,9 +72,10 @@ When using with Blue Ocean pipeline:
 - find your pipeline created
 - go back to classic mode and click Configure for the pipeline
 - add a Gitea source in order that webhooks work (keep the Git source for Blue Ocean use if chosen at pipeline creation)
+- choose a credential with username/password _(since Gitea uses Git plugin)_
 
 ### Gitea webhook config
-The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webhook/post` (if using jenkins in a container on the same network with hostname jenkins). I generated a token, saved in Jenkins credential, and provided that to the configuration for the pipeline. A token allows full access which meant Jenkins could establish the webhook itself. A token has the added benefit of not requiring a _crumb_ for cross-site accesses.
+The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webhook/post` (if using jenkins in a container on the same network with hostname jenkins). I generated a token in gitea, saved in Jenkins credential, and provided that to the manage jenkins -> configuration for the Gitea. A token allows full access which meant Jenkins could establish the webhook itself. A token has the added benefit of not requiring a _crumb_ for cross-site accesses.
 
 ### Troubleshooting
 
