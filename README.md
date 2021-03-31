@@ -53,6 +53,16 @@ For integration with gitea:
 ### Jenkins config
 For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section. If running Jenkins and Gitea from containers, ensure both on the same network.
 
+When using with Blue Ocean pipeline:
+
+- create a dummy Jenkinsfile in the gitea repo of choice
+- create new pipeline, choose Git as source (unless the developers have since provided a Gitea source, then choose that)
+- provide the ssh url (I believe Blue Ocean requires ssh access) to the repo
+- if connection errors, probably due to a key not present on gitea, so add the suggested one, and perhaps save as credential _(can't remember exact order)_
+- find your pipeline created
+- go back to classic mode and click Configure for the pipeline
+- add a Gitea source in order that webhooks work (keep the Git source for Blue Ocean use if chosen at pipeline creation)
+
 ### Gitea webhook config
 The webhook to Jenkins using gitea is similar to `http://jenkins:8080/gitea-webhook/post` (if using jenkins in a container on the same network with hostname jenkins). I generated a token, saved in Jenkins credential, and provided that to the configuration for the pipeline. A token allows full access which meant Jenkins could establish the webhook itself. A token has the added benefit of not requiring a _crumb_ for cross-site accesses.
 
