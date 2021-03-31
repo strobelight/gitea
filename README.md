@@ -47,11 +47,11 @@ docker-compose stop
 For integration with gitea:
 
 - Install jenkins gitea plugin
-- Configure access to gitea (manage -> configure, scroll to gitea server section)
+- Configure access to gitea (manage -> configure, scroll to gitea server section) which will show up in the Server dropdowns
 - Configure gitea repo webhook to jenkins (sometimes Jenkins automatically configures this)
 
 ### Jenkins config
-For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section under _Manage Jenkins -> Configure System_. 
+For Jenkins, install the gitea plugin, then you can configure it by scrolling to the **Gitea Servers** section under _Manage Jenkins -> Configure System_.
 
 - Create a token in gitea for access by Jenkins, copy to clipboard for pasting next
 - Create Jenkins credential to save gitea token
@@ -62,6 +62,8 @@ For Jenkins, install the gitea plugin, then you can configure it by scrolling to
 - Alias URL is _http://gitea:3000_
 
 If running Jenkins and Gitea from containers, ensure both on the same network.
+
+You'll note that one of the "New Items" you can choose from the dashboard is _Gitea Organization_. Choose the server to gitea, use a token as credential, enter the owner. You can enhance further by picking which branches to build when changes occur in the repo.
 
 When using with Blue Ocean pipeline:
 
